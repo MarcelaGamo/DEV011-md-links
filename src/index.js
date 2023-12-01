@@ -22,7 +22,7 @@ const mdLinks = (route, validate) => {
 
     // Encuentra los links dentro del documento
         const links = encontrarLinks(content, rutaValidada);
-        
+
     //Hito2 -- implementando validate
         if (validate) {
             const validatePromises = links.map(validateLink);
@@ -38,3 +38,4 @@ const mdLinks = (route, validate) => {
   };
   
   module.exports = mdLinks;
+  
