@@ -10,4 +10,3 @@ test('debería validar un enlace correctamente', () => {
     file: '/ruta/ejemplo.md',
   };
 });
-
