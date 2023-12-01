@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 
 // Verifica y convierte la ruta a absoluta
 const isAbsolutePath = (route) => path.isAbsolute(route);
@@ -39,7 +40,22 @@ const encontrarLinks = (content, file) => {
   }
   return links;
 };
-
+//Hito2 : validate
+const validateLink = (link) => {
+  return new Promise((resolve) => {
+    axios.head(link.href)
+      .then((response) => {
+        link.status = response.status;
+        link.ok = response.status >= 200 && response.status < 400 ? 'ok' : 'fail';
+        resolve(link);
+      })
+      .catch(() => {
+        link.status = 404;
+        link.ok = 'fail';
+        resolve(link);
+      });
+  });
+};
 
 module.exports = {
   isAbsolutePath,
@@ -48,4 +64,5 @@ module.exports = {
   esMarkdown,
   leerContenido,
   encontrarLinks,
+  validateLink,
 };

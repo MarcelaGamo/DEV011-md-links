@@ -1,6 +1,6 @@
 const { isAbsolutePath, convertirAabsoluta, verificarExistenciaRuta, esMarkdown, leerContenido, encontrarLinks, validateLink} = require('./function');
 
-const mdLinks = (route) => {
+const mdLinks = (route, validate) => {
   return new Promise((resolve, reject) => {
     // Valida y convierte la ruta a absoluta
     const rutaValidada = isAbsolutePath(route) ? route : convertirAabsoluta(route);
@@ -19,14 +19,22 @@ const mdLinks = (route) => {
     // Lee el contenido del archivo
     leerContenido(rutaValidada)
       .then((content) => {
-        // Encuentra los links dentro del documento
+
+    // Encuentra los links dentro del documento
         const links = encontrarLinks(content, rutaValidada);
-        resolve(links);
-      })
-      .catch((err) => reject(err));
-  });
+        
+    //Hito2 -- implementando validate
+        if (validate) {
+            const validatePromises = links.map(validateLink);
+            Promise.all(validatePromises)
+              .then((validatedLinks) => resolve(validatedLinks))
+              .catch((err) => reject(err));
+          } else {
+            resolve(links);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
   
-};
-
-module.exports = mdLinks;
-
+  module.exports = mdLinks;
