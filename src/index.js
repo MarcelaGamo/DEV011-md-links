@@ -1,7 +1,17 @@
-const { isAbsolutePath, convertirAabsoluta, verificarExistenciaRuta, esMarkdown, leerContenido, encontrarLinks, validateLink} = require('./function');
+const {
+  isAbsolutePath,
+  convertirAabsoluta,
+  verificarExistenciaRuta,
+  esMarkdown,
+  leerContenido,
+  encontrarLinks,
+  validateLink,
+} = require('./function');
 
-const mdLinks = (route, validate) => {
+const mdLinks = (route, options) => {
   return new Promise((resolve, reject) => {
+    const { validate, stats } = options || {};
+
     // Valida y convierte la ruta a absoluta
     const rutaValidada = isAbsolutePath(route) ? route : convertirAabsoluta(route);
     console.log('Ruta validada:', rutaValidada);
@@ -19,25 +29,42 @@ const mdLinks = (route, validate) => {
     // Lee el contenido del archivo
     leerContenido(rutaValidada)
       .then((content) => {
-
-    // Encuentra los links dentro del documento
         const links = encontrarLinks(content, rutaValidada);
 
-    //Hito2 -- implementando validate
         if (validate) {
-            const validatePromises = links.map(validateLink);
-            Promise.all(validatePromises)
-              .then((validatedLinks) => resolve(validatedLinks))
-              .catch((err) => reject(err));
+          const validatePromises = links.map(validateLink);
+          Promise.all(validatePromises)
+            .then((validatedLinks) => {
+              if (stats) {
+                const totalLinks = validatedLinks.length;
+                const uniqueLinks = new Set(validatedLinks.map((link) => link.href)).size;
+                const brokenLinks = validatedLinks.filter((link) => link.ok === 'fail').length;
+                const statsResult = { total: totalLinks, unique: uniqueLinks, broken: brokenLinks };
+                console.log(statsResult);
+                resolve(statsResult);
+              } else {
+                resolve(validatedLinks);
+              }
+            })
+            .catch((err) => reject(err));
+        } else {
+          if (stats) {
+            const totalLinks = links.length;
+            const uniqueLinks = new Set(links.map((link) => link.href)).size;
+            const statsResult = { total: totalLinks, unique: uniqueLinks };
+            console.log(statsResult);
+            resolve(statsResult);
           } else {
             resolve(links);
           }
-        })
-        .catch((err) => reject(err));
-    });
-  };
-  
-  module.exports = mdLinks;
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
 
-  
+module.exports = mdLinks;
+
+
+
   

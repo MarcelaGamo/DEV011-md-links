@@ -10,3 +10,15 @@ test('debería validar un enlace correctamente', () => {
     file: '/ruta/ejemplo.md',
   };
 });
+// it('debe validar los enlaces utilizando: validate true', () => {
+//   const Path = 'README2.md';
+//   return mdLinks(Path, true).then((result) => {
+//     result.forEach((link) => {
+//       expect(link).toHaveProperty('href');
+//       expect(link).toHaveProperty('text');
+//       expect(link).toHaveProperty('file');
+//       expect(link).toHaveProperty('status');
+//       expect(link).toHaveProperty('ok');
+//     });
+//   });
+// });

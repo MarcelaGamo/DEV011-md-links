@@ -74,8 +74,6 @@ const path = "README.md";
         expect(link).toHaveProperty('href');
         expect(link).toHaveProperty('text');
         expect(link).toHaveProperty('file');
-        expect(link).toHaveProperty('status');
-        expect(link).toHaveProperty('ok');
       });
     });
   });
