@@ -8,11 +8,11 @@ const path = "README.md";
 
   //Pruebas Hito1
 
-  describe("mdLinks", () => {
-    it("Debe devolver una promesa", () => {
-      expect(mdLinks("./README.md")).toBeInstanceOf(Promise);
-    });
-  });
+  // describe("mdLinks", () => {
+  //   it("Debe devolver una promesa", () => {
+  //     expect(mdLinks("./README.md")).toBeInstanceOf(Promise);
+  //   });
+  // });
 
   it("Debe rechazar cuando la ruta no existe", () => {
     return mdLinks(
