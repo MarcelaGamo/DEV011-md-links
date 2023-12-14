@@ -1,9 +1,9 @@
 {
-  "name": "md-links",
+  "name": "md-links-marcela",
   "author": "Marcela Garavito",
   "version": "0.1.0",
   "description": "Markdown links extractor with validation",
-  "main":"cli.js",
+  "main": "cli.js",
   "engines": {
     "node": ">=16.x"
   },
@@ -15,7 +15,6 @@
     "version": "7.1.0",
     "commit": "d257c41694344460623eb1f1bb2a690bdfe33f83"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/MarcelaGamo/DEV011-md-links"
@@ -26,6 +25,8 @@
   },
   "scripts": {
     "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.22.0"
   }
-
 }
