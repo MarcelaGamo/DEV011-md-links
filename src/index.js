@@ -14,7 +14,7 @@ const mdLinks = (route, options) => {
 
     // Valida y convierte la ruta a absoluta
     const rutaValidada = isAbsolutePath(route) ? route : convertirAabsoluta(route);
-    console.log('Ruta validada:', rutaValidada);
+    //console.log('Ruta validada:', rutaValidada);
 
     // Verifica si la ruta existe en el comp
     if (!verificarExistenciaRuta(rutaValidada)) {
@@ -23,7 +23,7 @@ const mdLinks = (route, options) => {
 
     // Verifica si es Markdown
     if (!esMarkdown(rutaValidada)) {
-      reject(new Error('El archivo no es Markdown.'));
+      reject(new Error('El archivo no es Markdown'));
     }
 
     // Lee el contenido del archivo

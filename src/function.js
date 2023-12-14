@@ -40,7 +40,7 @@ const encontrarLinks = (content, file) => {
   }
   return links;
 };
-//Hito2 : validate
+//Validate
 const validateLink = (link) => {
   return new Promise((resolve) => {
     axios.head(link.href)
